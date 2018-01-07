@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+500.times do
+  a = (Faker::Book.author).split(' ')
+  if a.length < 3
+    Author.create([{
+                     first_name: a[0],
+                     last_name: a[1],
+                     birth_year: rand(1850..1990),
+                     is_alive: [true, false].sample
+                   }])
+  end
+end
