@@ -28,4 +28,14 @@ Types::QueryType = GraphQL::ObjectType.define do
    description 'Retrieves all authors'
    resolve -> (_, _, _) { Author.all }
  end
+
+
+  # doesnt work because data is actuall in the db
+  # field :specific_pub_year, types[Types::AuthorType] do
+  #   argument :publication_years, types.Int, "Enter the desired publication year"
+  #   description 'Retrieves authors by publication year'
+  #   resolve -> (_, args, _) {
+  #     Author.where(publication_years: args.publication_years)
+  #   }
+  # end
 end
