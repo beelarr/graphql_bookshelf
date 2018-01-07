@@ -15,5 +15,11 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  field
+  field :author, Types::AuthorType do
+    argument :id, types.ID
+    description "One Author"
+    resolve -> (obj, args, ctx) {
+      Author.where(id: args.id).first
+    }
+  end
 end
