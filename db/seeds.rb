@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-500.times do
+335.times do
   a = (Faker::Book.author).split(' ')
   if a.length < 3
     Author.create([{

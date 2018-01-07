@@ -30,7 +30,7 @@ Types::QueryType = GraphQL::ObjectType.define do
  end
 
 
-  # doesnt work because data is actuall in the db
+  # doesnt work because data is actually in the db
   # field :specific_pub_year, types[Types::AuthorType] do
   #   argument :publication_years, types.Int, "Enter the desired publication year"
   #   description 'Retrieves authors by publication year'
