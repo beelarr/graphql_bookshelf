@@ -15,6 +15,13 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
+  field :login, types.String do
+    argument :email, types.String
+    argument :password, types.String
+
+    resolve -> (_, args, ctx)
+  end
+
   field :author, Types::AuthorType do
     argument :id, types.ID
     description "One Author"
