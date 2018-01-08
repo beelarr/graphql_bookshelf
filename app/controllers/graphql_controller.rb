@@ -35,12 +35,8 @@ class GraphqlController < ApplicationController
   end
 
   def check_authentication
-    # parses query
     parsed_query = GraphQL::Query.new Bookshelf2Schema, params[:query]
-    # returns operation ie. author or user
     operation = parsed_query.selected_operation.selections.first.name
-
-    # allow our schema / docs in graphiql to display even if a method isn't public
     return true if operation == '__schema'
 
     field = Bookshelf2Schema.query.fields[operation] || Bookshelf2Schema.mutation.fields[operation]
@@ -48,9 +44,9 @@ class GraphqlController < ApplicationController
 
     unless @session = Session.where(key: request.headers['Authorization']).first
       head(:unauthorized)
-      # prevents execute
       return false
     end
+
     unless field.metadata[:must_be].to_a.include? @session.user.role
       head(:unauthorized)
       return false

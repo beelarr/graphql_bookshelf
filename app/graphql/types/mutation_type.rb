@@ -7,6 +7,8 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :deleteAuthor, function: Mutations::DeleteAuthor.new
 
   field :logout, types.Boolean do
+    is_public true
+
     resolve -> (_, _, c) { Session.where(key: c[:session_key]).destroy_all }
   end
 

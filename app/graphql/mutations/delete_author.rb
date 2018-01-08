@@ -6,6 +6,8 @@ class Mutations::DeleteAuthor < GraphQL::Function
   type types.Boolean
 
   def call(obj, args, ctx)
+    is_public true
+
     author = Author.find(args[:id])
     # !! converts nil to false
     !!author.destroy
