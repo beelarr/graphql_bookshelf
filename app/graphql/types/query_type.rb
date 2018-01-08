@@ -19,7 +19,10 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :email, types.String
     argument :password, types.String
 
-    resolve -> (_, args, ctx)
+    resolve -> (_, args, _) {
+      user = User.where(email: args[:email]).first
+      user.sessions.create.key if user.try(:authenticate, args[:password])
+    }
   end
 
   field :author, Types::AuthorType do
@@ -35,6 +38,20 @@ Types::QueryType = GraphQL::ObjectType.define do
    description 'Retrieves all authors'
    resolve -> (_, _, _) { Author.all }
  end
+
+  field :user, Types::UserType do
+    argument :id, types.ID
+    description "One User"
+    resolve -> (obj, args, ctx) {
+      User.where(id: args.id).first
+    }
+  end
+
+  #  a silly name, but a way for me to remember that queries can be given custom names
+  field :all_users, types[Types::UserType] do
+    description 'Retrieves all users'
+    resolve -> (_, _, _) { User.all }
+  end
 
 
   # doesnt work because data is actually in the db
