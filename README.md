@@ -1,4 +1,4 @@
-## GraphQL / Rails 5 
+## [GraphQL](http://graphql.org/) / [Rails 5](http://rubyonrails.org/) 
 
 ```
 bundle
@@ -12,7 +12,7 @@ Open
 localhost:3000/gi
 ```
 
-* This will load the GraphiQL GUI
+* This will load the [GraphiQL in-browser IDE](https://github.com/graphql/graphiql)
 
 
 Here are some sample queries
@@ -47,7 +47,7 @@ mutation createAuthor($author:AuthorInputType) {
 } 
 
 ```
-Query Varibles:
+Query Variables:
 ```
 {
   "author": {
@@ -68,14 +68,14 @@ mutation updateAuthor($author:AuthorInputType) {
   }
 }
 ```
-Query Varibles:
+Query Variables:
 ```
 {
   "author": {
-    "first_name": "Bill",
+    "first_name": "John",
     "last_name": "Smith",
-    "birth_year": 1965,
-    "is_alive": false
+    "birth_year": 1963,
+    "is_alive": true
   }
 }
 
