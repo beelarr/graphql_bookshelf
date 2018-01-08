@@ -39,6 +39,10 @@ Types::QueryType = GraphQL::ObjectType.define do
    resolve -> (_, _, _) { Author.all }
  end
 
+  field :current_user, Types::UserType do
+    resolve -> (_, _, c) { c[:current_user] }
+  end
+
   field :user, Types::UserType do
     argument :id, types.ID
     description "One User"
@@ -47,7 +51,6 @@ Types::QueryType = GraphQL::ObjectType.define do
     }
   end
 
-  #  a silly name, but a way for me to remember that queries can be given custom names
   field :all_users, types[Types::UserType] do
     description 'Retrieves all users'
     resolve -> (_, _, _) { User.all }
