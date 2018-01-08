@@ -44,8 +44,12 @@ class GraphqlController < ApplicationController
     parsed_query = GraphQL::Query.new Bookshelf2Schema, params[:query]
     # returns operation ie. author or user
     operation = parsed_query.selected_operation.selections.first.name
-    # checks to see if that field has a is_public metadata flag
-    return true if Bookshelf2Schema.query.fields[operation].metadata[:is_public]
+
+    # allow our schema / docs in graphiql to display even if a method isn't public
+    return true if operation is "__schema"
+
+    field = Bookshelf2Schema.query.fields[operation] || Bookshelf2Schema.mutation.fields[operation]
+    return true if field.metadata[:is_public]
 
 
     unless @session = Session.where(key: request.headers["Authorizaton"]).first
