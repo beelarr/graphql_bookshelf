@@ -38,7 +38,7 @@ Here are some sample queries
 }
 
 ```  
-#### Create
+### Create
 ```
 mutation createAuthor($author:AuthorInputType) {
   createAuthor(author:$author) {
@@ -59,7 +59,7 @@ Query Varibles:
 }
 
 ```
-#### Update
+### Update
 ```
 mutation updateAuthor($author:AuthorInputType) {
   updateAuthor(id: 7, author: $author) {
@@ -80,7 +80,7 @@ Query Varibles:
 }
 
 ```
-#### Delete
+### Delete
 ```
 mutation {
   deleteAuthor(id:<any_id>) {}
@@ -88,7 +88,7 @@ mutation {
 
 ```
 
-#### Error Handling
+### Error Handling
 * Gives front-end engineers the errors that occur in the back-end
 * A validation for last_name presence true can be used in the next example
 
