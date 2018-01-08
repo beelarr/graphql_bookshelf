@@ -1,3 +1,21 @@
+Types::UserInputType = GraphQL::InputObjectType.define do
+  name 'UserInputType'
+  description 'Properties for creating or updating a User'
+
+  field :first_name, types.String
+  field :last_name, types.String
+  field :street_number, types.Int
+  field :street, types.String
+  field :city, types.String
+  field :state, types.String
+  field :zip_code, types.String
+  field :phone_number, types.String
+  field :email, types.String
+  field :company, types.String
+  field :is_superadmin, types.Boolean
+end
+
+
 Types::UserType = GraphQL::ObjectType.define do
   name 'UserType'
 
