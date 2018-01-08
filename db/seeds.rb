@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-335.times do
+500.times do
   a = (Faker::Book.author).split(' ')
   if a.length < 3
     Author.create([{
@@ -17,4 +17,23 @@
                      is_alive: [true, false].sample
                    }])
   end
+end
+
+50.times do
+  b = (Faker::Name.unique.name).split(' ')
+  User.create([{
+                first_name: b[0],
+                last_name: b[1],
+                street_number: Faker::Address.building_number,
+                street: Faker::Address.street_name,
+                city: Faker::Address.city,
+                state: Faker::Address.state_abbr,
+                zip_code: Faker::Address.zip_code,
+                phone_number: Faker::PhoneNumber.cell_phone,
+                company: Faker::Company.name,
+                email: Faker::Internet.unique.email,
+                password: '123456',
+                password_confirmation: '123456',
+                is_superadmin: false
+               }])
 end
