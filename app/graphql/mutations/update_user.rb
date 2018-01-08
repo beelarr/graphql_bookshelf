@@ -1,4 +1,5 @@
 class Mutations::UpdateUser < GraphQL::Function
+  description 'Update a specific user by ID'
 
   argument :id, types.ID
   argument :user, Types::UserInputType

@@ -1,4 +1,6 @@
 class Mutations::CreateUser < GraphQL::Function
+  description 'Create a specific user.'
+
 
   argument :user, Types::UserInputType
 

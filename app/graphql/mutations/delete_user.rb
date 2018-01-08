@@ -1,4 +1,5 @@
 class Mutations::DeleteUser < GraphQL::Function
+  description 'Delete a specific user by ID'
 
   argument :id, types.ID
 

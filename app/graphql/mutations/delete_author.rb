@@ -1,4 +1,5 @@
 class Mutations::DeleteAuthor < GraphQL::Function
+  description 'Delete a specific author by ID'
 
   argument :id, types.ID
 
