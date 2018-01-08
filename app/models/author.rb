@@ -1,4 +1,7 @@
 class Author < ApplicationRecord
+
+  validates :last_name, presence: true
+
   # auto generates coordinates for authors not actual
   # data that is kept in the db
   def coordinates

@@ -32,4 +32,10 @@ Types::AuthorType = GraphQL::ObjectType.define do
   field :publication_years, types[types.Int] do
     description 'The publication years for the author'
   end
+
+  # gives the front end a way to see errors that occoured in the backend
+  # can be currently tested with a validation error on last_name presence
+  field :errors, types[types.String], "Reason this object couldn't be saved" do
+    resolve ->(o, _, _) { o.errors.to_a }
+  end
 end
