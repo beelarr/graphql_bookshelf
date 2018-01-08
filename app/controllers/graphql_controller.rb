@@ -1,13 +1,8 @@
 class GraphqlController < ApplicationController
 
-  before_action do
-    unless @session = Session.where(key: request.headers["Authorizaton"]).first
-      # returns http 401 error
-      head(:unauthorized)
-      # prevents execute
-      false
-    end
-  end
+  before_action :check_authentication
+
+
 
 
 
@@ -40,6 +35,23 @@ class GraphqlController < ApplicationController
       {}
     else
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
+    end
+  end
+
+  def check_authentication
+    # parses query
+    parsed_query = GraphQL::Query.new Bookshelf2Schema, params[:query]
+    # returns operation ie. author or user
+    operation = parsed_query.selected_operation.selections.first.name
+    # checks to see if that field has a is_public metadata flag
+    return true if Bookshelf2Schema.query.fields[operation].metadata[:is_public]
+
+
+    unless @session = Session.where(key: request.headers["Authorizaton"]).first
+      # returns http 401 error
+      head(:unauthorized)
+      # prevents execute
+      false
     end
   end
 end

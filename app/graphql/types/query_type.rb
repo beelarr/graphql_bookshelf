@@ -35,6 +35,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
  #  a silly name, but a way for me to remember that queries can be given custom names
  field :all_authors_is_dope, types[Types::AuthorType] do
+   is_public true
    description 'Retrieves all authors'
    resolve -> (_, _, _) { Author.all }
  end
