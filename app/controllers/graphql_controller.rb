@@ -2,11 +2,6 @@ class GraphqlController < ApplicationController
 
   before_action :check_authentication
 
-
-
-
-
-
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -24,18 +19,18 @@ class GraphqlController < ApplicationController
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)
     case ambiguous_param
-    when String
-      if ambiguous_param.present?
-        ensure_hash(JSON.parse(ambiguous_param))
-      else
+      when String
+        if ambiguous_param.present?
+          ensure_hash(JSON.parse(ambiguous_param))
+        else
+          {}
+        end
+      when Hash, ActionController::Parameters
+        ambiguous_param
+      when nil
         {}
-      end
-    when Hash, ActionController::Parameters
-      ambiguous_param
-    when nil
-      {}
-    else
-      raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
+      else
+        raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
   end
 
@@ -46,17 +41,19 @@ class GraphqlController < ApplicationController
     operation = parsed_query.selected_operation.selections.first.name
 
     # allow our schema / docs in graphiql to display even if a method isn't public
-    return true if operation is "__schema"
+    return true if operation == '__schema'
 
     field = Bookshelf2Schema.query.fields[operation] || Bookshelf2Schema.mutation.fields[operation]
     return true if field.metadata[:is_public]
 
-
-    unless @session = Session.where(key: request.headers["Authorizaton"]).first
-      # returns http 401 error
+    unless @session = Session.where(key: request.headers['Authorization']).first
       head(:unauthorized)
       # prevents execute
-      false
+      return false
+    end
+    unless field.metadata[:must_be].to_a.include? @session.user.role
+      head(:unauthorized)
+      return false
     end
   end
 end
