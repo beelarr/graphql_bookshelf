@@ -20,6 +20,7 @@ end
 
 Types::UserType = GraphQL::ObjectType.define do
   name 'UserType'
+  description 'All users that have registered.'
 
   field :first_name, types.String
   field :last_name, types.String

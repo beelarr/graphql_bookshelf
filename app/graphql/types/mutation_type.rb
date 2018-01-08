@@ -1,5 +1,6 @@
 Types::MutationType = GraphQL::ObjectType.define do
   name "Mutation"
+  description 'All items from our db that can be created, updated, and deleted.'
 
   # function is stored in the Mutations - create_author.rb
   field :createAuthor, function: Mutations::CreateAuthor.new

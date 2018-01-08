@@ -1,5 +1,6 @@
 Types::QueryType = GraphQL::ObjectType.define do
   name "Query"
+  description "Anything that is gettable from our db."
   # Add root-level fields here.
   # They will be entry points for queries on your schema.
 
