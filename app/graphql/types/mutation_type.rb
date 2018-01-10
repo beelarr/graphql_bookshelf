@@ -41,7 +41,8 @@ Types::MutationType = GraphQL::ObjectType.define do
       is_public true
       User.create args[:user].to_h
     end
-  endUser
+  end
+
 
   field :updateUser, Types::UserType do
     argument :id, types.ID
