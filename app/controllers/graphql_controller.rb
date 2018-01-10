@@ -42,14 +42,14 @@ class GraphqlController < ApplicationController
     field = Bookshelf2Schema.query.fields[operation] || Bookshelf2Schema.mutation.fields[operation]
     return true if field.metadata[:is_public]
 
-    unless @session = Session.where(key: request.headers['Authorization']).first
-      head(:unauthorized)
-      return false
-    end
+    # unless @session = Session.where(key: request.headers['Authorization']).first
+    #   head(:unauthorized)
+    #   return false
+    # end
 
-    unless field.metadata[:must_be].to_a.include? @session.user.role
-      head(:unauthorized)
-      return false
-    end
+    # unless field.metadata[:must_be].to_a.include? @session.user.role
+    #   head(:unauthorized)
+    #   return false
+    # end
   end
 end
