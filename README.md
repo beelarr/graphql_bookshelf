@@ -1,5 +1,6 @@
 ## [GraphQL](http://graphql.org/) / [Rails 5](http://rubyonrails.org/) 
 
+
 ```
 bundle
 rails db:migrate
@@ -22,6 +23,8 @@ Here are some sample queries
 }
 
 ```
+
+##### Get an author by id - returns data listed
 ```
 {
   author(id: 199) {
@@ -112,3 +115,18 @@ mutation createAuthor($author:AuthorInputType) {
 }
 
 ```
+
+### Login
+* The password for users is '123456'
+```
+{
+  login(email: "felicita_schulist@kling.com", password: "123456")
+}
+```
+
+### Logout
+```
+  mutation {logout}
+```
+### Acknowledgments
+Many thanks to[Alex Deva](https://github.com/alxx) for his Udemy Tutorial on Rails5 and GraphQL.
