@@ -46,7 +46,7 @@ class GraphqlController < ApplicationController
     #   head(:unauthorized)
     #   return false
     # end
-
+    #
     # unless field.metadata[:must_be].to_a.include? @session.user.role
     #   head(:unauthorized)
     #   return false
