@@ -2,8 +2,15 @@ Types::MutationType = GraphQL::ObjectType.define do
   name "Mutation"
 
   # function is stored in the Mutations - create_author.rb
-  field :createAuthor, function: Mutations::CreateAuthor.new
-  field :updateAuthor, function: Mutations::UpdateAuthor.new
+  field :createAuthor, Types::AuthorType do
+    argument :author, Types::AuthorInputType
+    resolve ->(_, args, _) do
+      is_public true
+      Author.create args[:author].to_h
+    end
+  end
+
+
   field :deleteAuthor, function: Mutations::DeleteAuthor.new
 
   field :logout, types.Boolean do
@@ -13,3 +20,4 @@ Types::MutationType = GraphQL::ObjectType.define do
   end
 
 end
+
