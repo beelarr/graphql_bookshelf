@@ -7,6 +7,8 @@ class Mutations::UpdateAuthor < GraphQL::Function
   type Types::AuthorType
 
   def call(obj, args, ctx)
+    is_public true
+
     author = Author.find(args[:id])
     author.try :update, args[:author].to_h
     author
