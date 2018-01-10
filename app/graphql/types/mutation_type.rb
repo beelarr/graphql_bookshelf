@@ -34,6 +34,38 @@ Types::MutationType = GraphQL::ObjectType.define do
     end
   end
 
+# mutations for users
+  field :createUser, Types::UserType do
+    argument :user, Types::UserInputType
+    resolve ->(_, args, _) do
+      is_public true
+      User.create args[:user].to_h
+    end
+  endUser
+
+  field :updateUser, Types::UserType do
+    argument :id, types.ID
+    argument :user, Types::UserInputType
+    resolve -> (_, args, _) do
+      is_public true
+      user = User.find(args[:id])
+      user.try :update, args[:user].to_h
+      user
+    end
+  end
+
+  field :deleteUser, Types::UserType do
+    argument :id, types.ID
+    type types.Boolean
+    resolve -> (_, args, _) do
+      is_public true
+
+      user = User.find(args[:id])
+      # !! converts nil to false
+      !!user.destroy
+    end
+  end
+
   field :logout, types.Boolean do
     is_public true
     resolve -> (_, _, c) { Session.where(key: c[:session_key]).destroy_all }
