@@ -1,4 +1,5 @@
 class Mutations::UpdateAuthor < GraphQL::Function
+  description 'Update a specific author by ID'
 
   argument :id, types.ID
   argument :author, Types::AuthorInputType

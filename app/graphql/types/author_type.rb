@@ -11,6 +11,7 @@ end
 
 Types::AuthorType = GraphQL::ObjectType.define do
   name 'AuthorType'
+  description 'Authors that are in our db'
 
   # ! makes a field non-nullable
   field :first_name, !types.String

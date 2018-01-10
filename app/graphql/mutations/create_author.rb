@@ -1,4 +1,5 @@
 class Mutations::CreateAuthor < GraphQL::Function
+  description 'Create a specific author.'
 
   argument :author, Types::AuthorInputType
 
@@ -9,7 +10,4 @@ class Mutations::CreateAuthor < GraphQL::Function
 
     Author.create args[:author].to_h
   end
-
 end
-
-
