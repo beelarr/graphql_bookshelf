@@ -10,6 +10,17 @@ Types::MutationType = GraphQL::ObjectType.define do
     end
   end
 
+  field :updateAuthor, Types::AuthorType do
+    argument :id, types.ID
+    argument :author, Types::AuthorInputType
+    resolve -> (_, args, _) do
+      is_public true
+      author = Author.find(args[:id])
+      author.try :update, args[:author].to_h
+      author
+    end
+  end
+
 
   field :deleteAuthor, function: Mutations::DeleteAuthor.new
 
