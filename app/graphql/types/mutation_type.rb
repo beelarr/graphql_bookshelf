@@ -21,14 +21,21 @@ Types::MutationType = GraphQL::ObjectType.define do
     end
   end
 
+  field :deleteAuthor, Types::AuthorType do
+    argument :id, types.ID
+    type types.Boolean
+    resolve -> (_, args, _) do
+      is_public true
 
-  field :deleteAuthor, function: Mutations::DeleteAuthor.new
+      author = Author.find(args[:id])
+      # !! converts nil to false
+      !!author.destroy
+    end
+  end
 
   field :logout, types.Boolean do
     is_public true
-
     resolve -> (_, _, c) { Session.where(key: c[:session_key]).destroy_all }
   end
-
 end
 
