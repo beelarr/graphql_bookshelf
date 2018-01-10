@@ -129,4 +129,4 @@ mutation createAuthor($author:AuthorInputType) {
   mutation {logout}
 ```
 ### Acknowledgments
-Many thanks to[Alex Deva](https://github.com/alxx) for his Udemy Tutorial on Rails5 and GraphQL.
+Many thanks to [Alex Deva](https://github.com/alxx) for his Udemy Tutorial on Rails5 and GraphQL.
